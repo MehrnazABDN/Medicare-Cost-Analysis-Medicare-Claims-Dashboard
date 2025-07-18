@@ -11,7 +11,6 @@ This repository contains:
 
 - `SQL_Queries.sql` — MySQL queries for data aggregation and analysis.
 - `PowerBI_Dashboard.pbix` — Power BI dashboard for interactive data visualization.
-- `inpatient_data.csv` — Medicare inpatient claims data.
 - `Report_Medicare_Inpatient_Cost_Analysis.pdf` — Summary report of analysis.
 
 ## Instructions
