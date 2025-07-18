@@ -1,0 +1,110 @@
+SELECT *
+FROM inpatient
+
+SELECT TOP 10
+  CLM_DRG_CD,
+  COUNT(*) AS Num_Claims,
+  ROUND(SUM(CLM_PMT_AMT), 2) AS Total_Payment,
+  ROUND(AVG(CLM_PMT_AMT),2) AS Avg_Payment,
+  MIN(CLM_PMT_AMT) AS Min_Payment,
+  MAX(CLM_PMT_AMT) AS Max_Payment,
+  MAX(CLM_PMT_AMT) - MIN(CLM_PMT_AMT) AS Range_Payment
+FROM inpatient
+WHERE CLM_DRG_CD IS NOT NULL
+GROUP BY CLM_DRG_CD
+ORDER BY Total_Payment DESC;
+
+SELECT TOP 10
+  CLM_DRG_CD,
+  COUNT(*) AS Num_Claims,
+  ROUND(SUM(CLM_PMT_AMT), 2) AS Total_Payment,
+  ROUND(AVG(CLM_PMT_AMT), 2) AS Avg_Payment,
+  MIN(CLM_PMT_AMT) AS Min_Payment,
+  MAX(CLM_PMT_AMT) AS Max_Payment,
+  MAX(CLM_PMT_AMT) - MIN(CLM_PMT_AMT) AS Range_Payment
+FROM inpatient
+WHERE CLM_DRG_CD IS NOT NULL
+GROUP BY CLM_DRG_CD
+ORDER BY Range_Payment DESC;
+
+SELECT TOP 10
+  CLM_DRG_CD,
+  COUNT(*) AS Num_Claims,
+  AVG(CLM_PMT_AMT) AS Avg_Payment
+FROM inpatient
+WHERE CLM_DRG_CD IS NOT NULL
+GROUP BY CLM_DRG_CD
+HAVING COUNT(*) >= 50
+ORDER BY Avg_Payment DESC;
+
+
+SELECT  
+  FORMAT(CLM_ADMSN_DT, 'yyyy-MM') AS Claim_Month,
+  COUNT(*) AS Num_Claims,
+  SUM(CLM_PMT_AMT) AS Total_Monthly_Payment,
+  AVG(CLM_PMT_AMT) AS Avg_Payment_Per_Claim
+FROM inpatient
+WHERE CLM_DRG_CD IS NOT NULL AND CLM_ADMSN_DT IS NOT NULL
+GROUP BY FORMAT(CLM_ADMSN_DT, 'yyyy-MM')
+ORDER BY Claim_Month;
+
+
+SELECT
+	YEAR(CLM_ADMSN_DT) AS Claim_Year,
+	COUNT(*) AS Num_Claims,
+	SUM(CLM_PMT_AMT) AS Total_Payment,
+	AVG(CLM_PMT_AMT)AS Avg_Payment
+FROM inpatient
+WHERE CLM_DRG_CD IS NOT NULL AND CLM_ADMSN_DT IS NOT NULL
+GROUP BY YEAR(CLM_ADMSN_DT)
+ORDER BY Claim_Year;
+
+SELECT CLM_DRG_CD,
+       AVG(CLM_UTLZTN_DAY_CNT) AS Avg_LOS,
+	   MAX(CLM_UTLZTN_DAY_CNT) AS Max_Stay,
+	   MIN(CLM_UTLZTN_DAY_CNT) AS Min_stay,
+	   MAX(CLM_UTLZTN_DAY_CNT)- MIN(CLM_UTLZTN_DAY_CNT) AS  Range_Stay_Days,
+       COUNT(*) AS Claims
+FROM inpatient
+GROUP BY CLM_DRG_CD
+ORDER BY Avg_LOS DESC
+
+SELECT 
+  CLM_DRG_CD,
+  COUNT(*) AS Num_Claims,
+  AVG(CLM_UTLZTN_DAY_CNT) AS Avg_LOS,
+  AVG(CLM_PMT_AMT) AS Avg_Payment,
+  SUM(CLM_PMT_AMT) AS Total_Payment
+FROM inpatient
+WHERE 
+  CLM_DRG_CD IS NOT NULL 
+  AND CLM_PMT_AMT IS NOT NULL
+  AND CLM_UTLZTN_DAY_CNT IS NOT NULL
+GROUP BY CLM_DRG_CD;
+
+SELECT
+    YEAR(CLM_ADMSN_DT) AS Year,
+    MONTH(CLM_ADMSN_DT) AS Month,
+    SUM(CLM_PMT_AMT) AS Total_Payments,
+    COUNT(*) AS Claim_Count
+FROM
+    inpatient
+GROUP BY
+    YEAR(CLM_ADMSN_DT),
+    MONTH(CLM_ADMSN_DT)
+ORDER BY
+    Claim_Count DESC;
+
+
+SELECT
+    YEAR(CLM_ADMSN_DT) AS Year,
+    MONTH(CLM_ADMSN_DT) AS Month,
+    SUM(CLM_PMT_AMT) AS Total_Payments,
+    COUNT(*) AS Claim_Count
+FROM
+    inpatient
+GROUP BY
+    YEAR(CLM_ADMSN_DT),
+    MONTH(CLM_ADMSN_DT)
+ORDER BY
+    Total_Payments DESC;
