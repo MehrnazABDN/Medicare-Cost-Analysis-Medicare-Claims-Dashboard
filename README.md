@@ -17,7 +17,7 @@ This repository contains:
 
 1. Load the dataset into MySQL.
 2. Run the SQL queries for analysis.
-3. Open the Power BI dashboard to explore visual insights.
+3. Power BI dashboard to explore visual insights. [**Explore the Dashboard**](https://app.powerbi.com/view?r=eyJrIjoiMzFmMGFiN2YtNTU2MS00OWZmLTgyZmYtM2Y0YTYxMThjMzcwIiwidCI6IjllZjlmNDg5LWUwYTAtNGVlYi04N2NjLTNhNTI2MTEyZmQwZCIsImMiOjF9)
 4. Review the report for detailed results.
 
 
